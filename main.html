@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sun-Kissed Floral Journey</title>
+    <title>Dynamic Journey Experience</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Playfair Display & Montserrat -->
+    <!-- Google Fonts: Montserrat & Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -19,13 +19,12 @@
                 extend: {
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
                     },
                     colors: {
-                        sunAmber: '#ffaa00',
-                        sunGold: '#ffcb42',
-                        rosePetal: '#ff758c',
-                        softCream: '#fffbf5'
+                        cyanGlow: '#00f3ff',
+                        purpleGlow: '#8000ff',
+                        magentaGlow: '#ff007f'
                     }
                 }
             }
@@ -33,110 +32,150 @@
     </script>
 
     <style>
-        /* Custom Styles & Sun Glare / Floral Animations */
+        /* Custom Styles & Animation Logic */
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #2b1704;
+            background-color: #0d0614;
             color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* Warm Sunlit Background Gradient */
-        .sun-bg {
-            background: radial-gradient(circle at 85% 15%, #ffe6a7 0%, #ffaa00 20%, #d45d31 45%, #42161b 75%, #1f0b18 100%);
-        }
-
-        /* Sunbeam Light Rays Sweeping Effect */
-        .sunbeam-container {
+        /* Warm Sun Glare and Lens Flare Overlay Effect */
+        .sun-glare {
             position: fixed;
-            top: -30%;
-            right: -20%;
-            width: 140vw;
-            height: 140vh;
+            top: -120px;
+            right: -120px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, 
+                rgba(255, 235, 170, 0.95) 0%, 
+                rgba(255, 170, 100, 0.6) 20%, 
+                rgba(255, 100, 150, 0.25) 45%, 
+                rgba(255, 100, 150, 0) 70%);
+            border-radius: 50%;
+            filter: blur(20px);
             pointer-events: none;
             z-index: 1;
-            overflow: hidden;
-            transform: rotate(-25deg);
+            animation: sunPulse 8s infinite alternate ease-in-out;
         }
 
-        .sunbeam {
-            position: absolute;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 235, 175, 0.18) 50%, rgba(255, 255, 255, 0) 100%);
-            height: 200%;
-            transform-origin: top center;
-            animation: beamPulse 8s infinite ease-in-out alternate;
-        }
-
-        @keyframes beamPulse {
-            0% { opacity: 0.3; transform: scaleX(0.9) rotate(0deg); }
-            50% { opacity: 0.7; transform: scaleX(1.2) rotate(2deg); }
-            100% { opacity: 0.4; transform: scaleX(1.0) rotate(-1deg); }
-        }
-
-        /* Solar Lens Flare Orbs */
-        .lens-flare-main {
+        /* Rotating Sun Light Rays */
+        .sun-rays {
             position: fixed;
-            top: -80px;
-            right: -80px;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,225,120,0.7) 25%, rgba(255,140,80,0.3) 55%, transparent 75%);
+            top: -250px;
+            right: -250px;
+            width: 900px;
+            height: 900px;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(255, 230, 180, 0.08) 15deg,
+                transparent 30deg,
+                rgba(255, 180, 200, 0.06) 45deg,
+                transparent 60deg,
+                rgba(255, 230, 180, 0.09) 90deg,
+                transparent 120deg,
+                rgba(255, 180, 200, 0.05) 150deg,
+                transparent 180deg
+            );
             border-radius: 50%;
-            filter: blur(25px);
             pointer-events: none;
-            z-index: 2;
-            animation: flareGlow 6s infinite alternate ease-in-out;
+            z-index: 1;
+            animation: rayRotate 45s linear infinite;
         }
 
-        .lens-flare-ring {
+        /* Secondary Lens Flare Reflection Rings */
+        .lens-flare-1 {
             position: fixed;
-            top: 20%;
+            top: 25%;
             right: 25%;
-            width: 180px;
-            height: 180px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(255, 200, 220, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            border: 1px solid rgba(255, 220, 230, 0.15);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 117, 140, 0.25) 0%, rgba(255, 203, 66, 0.2) 60%, transparent 100%);
-            border: 1px solid rgba(255, 235, 180, 0.2);
-            filter: blur(8px);
             pointer-events: none;
-            z-index: 2;
+            z-index: 1;
+            filter: blur(2px);
         }
 
-        @keyframes flareGlow {
-            0% { transform: scale(1); opacity: 0.85; }
-            100% { transform: scale(1.15); opacity: 1; }
+        .lens-flare-2 {
+            position: fixed;
+            top: 45%;
+            right: 42%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(180, 230, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(1px);
         }
 
-        /* Glassmorphism with Warm Sun Gold Accent */
+        @keyframes sunPulse {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.85; }
+            50% { transform: scale(1.15) translate(-20px, 20px); opacity: 1; }
+            100% { transform: scale(0.95) translate(10px, -10px); opacity: 0.85; }
+        }
+
+        @keyframes rayRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Abstract Floral Mesh Background Pattern */
+        .bg-grid-pattern {
+            background-size: 60px 60px;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.05) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism utility */
         .glass-card {
-            background: rgba(35, 16, 22, 0.55);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 220, 160, 0.22);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            background: rgba(26, 15, 36, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 200, 220, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         .glass-nav {
-            background: rgba(25, 10, 15, 0.65);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(255, 220, 160, 0.15);
+            background: rgba(18, 10, 26, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 200, 220, 0.12);
         }
 
-        /* Sun-Kissed Gradient Text */
-        .text-gradient-sun {
-            background: linear-gradient(135deg, #ffffff 0%, #ffea9f 40%, #ff758c 100%);
+        /* Ambient Glow Spheres */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.45;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.35; }
+            50% { transform: scale(1.2) translate(30px, -40px); opacity: 0.65; }
+            100% { transform: scale(0.9) translate(-20px, 30px); opacity: 0.35; }
+        }
+
+        /* Dynamic Text Gradient Glow */
+        .text-gradient-glow {
+            background: linear-gradient(135deg, #ffb3c6 0%, #ff80bf 40%, #ffd166 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 35px rgba(255, 170, 0, 0.35);
+            text-shadow: 0 0 30px rgba(255, 179, 198, 0.4);
         }
 
-        /* Golden Floral CTA Button */
+        /* Interactive Pulsing CTA Button Effect */
         .cta-btn {
             position: relative;
-            background: linear-gradient(135deg, rgba(255, 203, 66, 0.3), rgba(255, 117, 140, 0.3));
-            border: 1px solid rgba(255, 220, 160, 0.7);
-            box-shadow: 0 0 30px rgba(255, 170, 0, 0.4), inset 0 0 15px rgba(255, 235, 170, 0.3);
+            background: linear-gradient(135deg, rgba(255, 150, 180, 0.25), rgba(255, 210, 150, 0.25));
+            border: 1px solid rgba(255, 180, 200, 0.6);
+            box-shadow: 0 0 30px rgba(255, 150, 180, 0.35), inset 0 0 15px rgba(255, 220, 180, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
         }
@@ -148,7 +187,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
             transition: left 0.7s ease;
         }
 
@@ -158,19 +197,19 @@
 
         .cta-btn:hover {
             transform: translateY(-4px) scale(1.05);
-            border-color: #ffe6a7;
-            box-shadow: 0 0 50px rgba(255, 203, 66, 0.8), 0 0 20px rgba(255, 117, 140, 0.6), inset 0 0 25px rgba(255, 235, 170, 0.5);
+            border-color: #ffb3c6;
+            box-shadow: 0 0 45px rgba(255, 150, 180, 0.75), 0 0 20px rgba(255, 220, 150, 0.6), inset 0 0 20px rgba(255, 180, 200, 0.4);
         }
 
         .cta-btn:active {
             transform: translateY(1px) scale(0.98);
         }
 
-        /* Ripple Effect */
+        /* Ripple Effect Element */
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 245, 215, 0.7);
+            background: rgba(255, 255, 255, 0.6);
             transform: scale(0);
             animation: ripple-animation 0.6s linear;
             pointer-events: none;
@@ -217,14 +256,14 @@
             visibility: visible;
         }
 
-        /* Hover Zoom Feature Cards */
+        /* Hover Zoom Card Effects */
         .feature-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .feature-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(255, 203, 66, 0.5);
-            box-shadow: 0 15px 35px rgba(255, 170, 0, 0.25);
+            border-color: rgba(255, 180, 200, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 150, 180, 0.2);
         }
 
         /* Custom Scrollbar */
@@ -232,42 +271,39 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1a0a10;
+            background: #0d0614;
         }
         ::-webkit-scrollbar-thumb {
-            background: #4a232b;
+            background: #2a1538;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #ffcb42;
+            background: #ffb3c6;
         }
     </style>
 </head>
-<body class="relative sun-bg min-h-screen overflow-x-hidden selection:bg-amber-400 selection:text-black">
+<body class="relative bg-slate-950 text-white min-h-screen overflow-x-hidden selection:bg-pink-400 selection:text-black">
 
-    <!-- Sunbeams Visual Layer -->
-    <div class="sunbeam-container">
-        <div class="sunbeam" style="width: 120px; left: 20%;"></div>
-        <div class="sunbeam" style="width: 200px; left: 35%; animation-delay: -2s;"></div>
-        <div class="sunbeam" style="width: 90px; left: 55%; animation-delay: -4s;"></div>
-        <div class="sunbeam" style="width: 160px; left: 70%; animation-delay: -1s;"></div>
-    </div>
+    <!-- Sun Flare & Ray Visual Elements -->
+    <div class="sun-glare"></div>
+    <div class="sun-rays"></div>
+    <div class="lens-flare-1"></div>
+    <div class="lens-flare-2"></div>
 
-    <!-- Solar Lens Flare Elements -->
-    <div class="lens-flare-main"></div>
-    <div class="lens-flare-ring"></div>
+    <!-- Interactive Glowing Ambient Orbs -->
+    <div class="glow-orb w-96 h-96 bg-pink-500 top-10 -left-20"></div>
+    <div class="glow-orb w-96 h-96 bg-amber-500 bottom-10 -right-20" style="animation-delay: -5s;"></div>
+    <div class="glow-orb w-80 h-80 bg-rose-600 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="animation-delay: -3s;"></div>
 
-    <!-- Background Canvas for Floating Flower Petals -->
-    <canvas id="petalCanvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+    <!-- Background Grid & Dynamic Floral Petals Canvas -->
+    <div class="fixed inset-0 bg-grid-pattern opacity-60 z-0 pointer-events-none"></div>
+    <canvas id="particleCanvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
 
     <!-- ================= PAGE 1: HERO / WELCOME PAGE ================= -->
     <section id="page1" class="page-view page-active z-10 flex flex-col justify-between items-center px-6 py-10">
         <!-- Top Header Branding -->
         <header class="w-full max-w-7xl flex justify-between items-center z-20">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-rose-500 flex items-center justify-center font-bold text-xl shadow-lg shadow-amber-500/30">
-                    <i class="fa-solid fa-spa text-white"></i>
-                </div>
                 <span class="font-serif font-bold text-2xl tracking-wide text-white">BLOOM<span class="text-amber-300 font-sans text-lg font-light"> & SUN</span></span>
             </div>
             <div class="text-xs uppercase tracking-widest text-amber-200/90 bg-white/10 border border-amber-300/20 px-4 py-2 rounded-full backdrop-blur-md flex items-center gap-2">
@@ -279,33 +315,22 @@
         <!-- Main Center Hero Content -->
         <main class="flex-1 flex flex-col justify-center items-center text-center max-w-4xl my-auto z-20 transition-all duration-300 transform" id="heroInteractiveContainer">
             
-            <!-- Floral Badge -->
-            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-amber-300/40 bg-amber-500/15 text-amber-200 text-sm font-medium mb-8 shadow-inner backdrop-blur-md">
-                <i class="fa-solid fa-seedling text-amber-300"></i>
-                Floral Elegance & Solar Radiance
-            </div>
-
-            <!-- Greeting Headline -->
-            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-                Welcome, <span id="dynamicTypingText" class="text-gradient-sun italic">Blossom</span>
+            <!-- Greeting Headline with Typewriter Lines -->
+            <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-8 leading-tight min-h-[140px] sm:min-h-[160px] flex items-center justify-center">
+                <span id="dynamicTypingText" class="text-gradient-sun italic"></span><span class="animate-pulse text-amber-300 font-light ml-1">|</span>
             </h1>
-
-            <p class="text-amber-100/90 text-lg sm:text-xl max-w-2xl mb-12 font-light leading-relaxed">
-                Experience a serene digital landscape bathed in warm sunlight, gentle drifting flower petals, and glowing solar lens flare visual effects.
-            </p>
 
             <!-- Centered Animated CTA Button -->
             <button id="enterBtn" onclick="navigateToPage(2, event)" class="cta-btn group relative px-10 py-5 rounded-full font-semibold text-lg tracking-wider uppercase text-white flex items-center gap-4 cursor-pointer">
-                <span>Enter The Garden</span>
+                <span>Lets Go</span>
                 <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1.5 group-hover:bg-amber-300 text-amber-100 group-hover:text-amber-950">
-                    <i class="fa-solid fa-fan text-sm animate-spin" style="animation-duration: 6s;"></i>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
                 </div>
             </button>
         </main>
 
         <!-- Footer Visual Indicator -->
         <footer class="w-full text-center text-xs text-amber-200/70 z-20 flex flex-col items-center gap-2">
-            <span>Move cursor to influence the breeze & floating petals</span>
             <div class="w-5 h-9 rounded-full border-2 border-amber-300/40 flex justify-center p-1">
                 <div class="w-1.5 h-2.5 bg-amber-300 rounded-full animate-bounce"></div>
             </div>
@@ -318,9 +343,6 @@
         <nav class="glass-nav sticky top-0 z-30 px-6 py-4">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-amber-400 to-rose-500 flex items-center justify-center font-bold text-lg shadow-md shadow-amber-500/20">
-                        <i class="fa-solid fa-spa text-white"></i>
-                    </div>
                     <span class="font-serif font-bold text-xl tracking-wide text-white">BLOOM<span class="text-amber-300 font-sans text-sm font-light">.GARDEN</span></span>
                 </div>
 
@@ -328,7 +350,7 @@
                 <div class="flex items-center gap-4">
                     <button onclick="navigateToPage(1, event)" class="px-5 py-2.5 rounded-full border border-amber-300/30 bg-white/5 hover:bg-white/15 hover:border-amber-300/60 text-amber-100 text-sm font-medium transition-all flex items-center gap-2 group">
                         <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1 text-amber-300"></i>
-                        <span>Return to Sunlit Welcome</span>
+                        <span>Back</span>
                     </button>
                 </div>
             </div>
@@ -339,68 +361,83 @@
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                    <span class="text-amber-300 font-semibold tracking-wider text-sm uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-sun"></i> Solar Sanctuary Overview
-                    </span>
-                    <h2 class="font-serif text-3xl sm:text-5xl font-bold mt-1 text-white">Botanical & Light Harmonies</h2>
+                    <span class="text-pink-300 font-semibold tracking-wider text-sm uppercase">Solar & Floral Experience</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold mt-1 text-white">Serene Visuals</h2>
                 </div>
-                <p class="text-amber-100/80 max-w-md text-sm sm:text-base font-light">
-                    Explore visual metrics, organic flower petal simulations, and warm solar flare interactions crafted for a peaceful interactive experience.
+                <p class="text-pink-100/70 max-w-md text-sm sm:text-base">
+                    Discover interactive feature cards, solar metrics, and optimized procedural petal animation physics tailored for a relaxing web environment.
                 </p>
             </div>
 
             <!-- Stats Grid Counter Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
-                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-amber-500/15 rounded-full blur-xl group-hover:bg-amber-500/30 transition-all"></div>
-                    <div class="text-amber-200/80 text-sm font-medium mb-2 flex items-center justify-between">
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-pink-500/10 rounded-full blur-xl group-hover:bg-pink-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
                         <span>Solar Illumination</span>
                         <i class="fa-solid fa-sun text-amber-300"></i>
                     </div>
-                    <div class="font-serif text-4xl font-bold text-white mb-2">
-                        <span class="counter" data-target="98">0</span><span class="text-amber-300 text-2xl">%</span>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="98">0</span> <span class="text-pink-300 text-2xl">%</span>
                     </div>
-                    <p class="text-xs text-amber-200/60">Natural sunlight warmth index</p>
+                    <p class="text-xs text-pink-200/50">Warm sunlight flare blend scale</p>
                 </div>
 
-                <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
-                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-rose-500/15 rounded-full blur-xl group-hover:bg-rose-500/30 transition-all"></div>
-                    <div class="text-amber-200/80 text-sm font-medium mb-2 flex items-center justify-between">
-                        <span>Petals In Breeze</span>
-                        <i class="fa-solid fa-wind text-rose-300"></i>
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-rose-500/10 rounded-full blur-xl group-hover:bg-rose-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
+                        <span>Active Sakura Petals</span>
+                        <i class="fa-solid fa-seedling text-pink-400"></i>
                     </div>
-                    <div class="font-serif text-4xl font-bold text-white mb-2">
-                        <span class="counter" data-target="85">0</span> <span class="text-rose-300 text-2xl">Active</span>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="60">0</span> <span class="text-amber-300 text-2xl">Petals</span>
                     </div>
-                    <p class="text-xs text-amber-200/60">Organic particle physics simulation</p>
+                    <p class="text-xs text-pink-200/50">Simulated aerodynamic wind drift</p>
                 </div>
 
-                <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
-                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-yellow-500/15 rounded-full blur-xl group-hover:bg-yellow-500/30 transition-all"></div>
-                    <div class="text-amber-200/80 text-sm font-medium mb-2 flex items-center justify-between">
-                        <span>Serenity Rating</span>
-                        <i class="fa-solid fa-heart text-amber-400"></i>
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
+                        <span>Fluid Harmony</span>
+                        <i class="fa-solid fa-heart text-rose-400"></i>
                     </div>
-                    <div class="font-serif text-4xl font-bold text-white mb-2">
-                        <span class="counter" data-target="100">0</span><span class="text-amber-300 text-2xl">%</span>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="100">0</span> <span class="text-rose-300 text-2xl">%</span>
                     </div>
-                    <p class="text-xs text-amber-200/60">Relaxing visual ambiance standard</p>
+                    <p class="text-xs text-pink-200/50">Ultra-smooth responsive visual state</p>
                 </div>
             </div>
 
             <!-- Feature Highlight Cards -->
-            <h3 class="font-serif text-2xl font-semibold mb-6 text-amber-100">Floral & Sun Highlights</h3>
+            <h3 class="font-display text-xl font-semibold mb-6 text-pink-100">Featured Elements</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 
                 <!-- Card 1 -->
-                <div class="glass-card feature-card p-8 rounded-3xl flex flex-col justify-between">
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-2xl bg-amber-400/20 border border-amber-300/40 text-amber-300 flex items-center justify-center text-xl mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-300 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-clover"></i>
+                        </div>
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Floating Petals Physics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            Procedurally rendered organic flower petal geometry floating gracefully with natural flutter, sway, and dynamic wind responses.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-xs font-semibold text-pink-300 gap-2 hover:translate-x-1 transition-transform">
+                        <span>Explore details</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-xl mb-6">
                             <i class="fa-solid fa-sun"></i>
                         </div>
-                        <h4 class="font-serif text-xl font-bold text-white mb-3">Solar Lens Flare</h4>
-                        <p class="text-amber-100/70 text-sm leading-relaxed mb-6 font-light">
-                            Sweeping warm light beams and optical glare rings mimicking soft afternoon sunshine filtering through foliage.
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Sun Glare Optics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            Atmospheric light ray diffusion and pulsating corner solar flare overlays creating a gentle, radiant glow.
                         </p>
                     </div>
                     <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 gap-2 hover:translate-x-1 transition-transform">
@@ -409,15 +446,15 @@
                     </a>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="glass-card feature-card p-8 rounded-3xl flex flex-col justify-between">
+                <!-- Card 3 -->
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-2xl bg-rose-400/20 border border-rose-300/40 text-rose-300 flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-clover"></i>
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
                         </div>
-                        <h4 class="font-serif text-xl font-bold text-white mb-3">Floating Petals</h4>
-                        <p class="text-amber-100/70 text-sm leading-relaxed mb-6 font-light">
-                            Procedural canvas rendering of falling cherry blossom petals oscillating gracefully in interactive wind currents.
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Warm Aesthetics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            A curated color palette blending soft blush, rose gold, and solar amber highlights designed for visual tranquility.
                         </p>
                     </div>
                     <a href="#" class="inline-flex items-center text-xs font-semibold text-rose-300 gap-2 hover:translate-x-1 transition-transform">
@@ -426,38 +463,21 @@
                     </a>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="glass-card feature-card p-8 rounded-3xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-yellow-400/20 border border-yellow-300/40 text-yellow-300 flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <h4 class="font-serif text-xl font-bold text-white mb-3">Golden Glass UI</h4>
-                        <p class="text-amber-100/70 text-sm leading-relaxed mb-6 font-light">
-                            Frosted dark rose-gold containers combined with ambient glow reflections for warm visual depth.
-                        </p>
-                    </div>
-                    <a href="#" class="inline-flex items-center text-xs font-semibold text-yellow-300 gap-2 hover:translate-x-1 transition-transform">
-                        <span>Explore details</span>
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </a>
-                </div>
-
             </div>
 
             <!-- Footer area for Page 2 -->
-            <div class="glass-card p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 border border-amber-300/30">
+            <div class="glass-card p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-seedling"></i>
+                    <div class="w-12 h-12 rounded-full bg-pink-400/20 text-pink-300 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-sun"></i>
                     </div>
                     <div>
-                        <h4 class="font-serif font-bold text-white text-lg">Enjoyed the sunlit sanctuary?</h4>
-                        <p class="text-sm text-amber-200/70">Return anytime to experience the calming atmosphere.</p>
+                        <h4 class="font-bold text-white">Experience the sunlit atmosphere</h4>
+                        <p class="text-sm text-pink-100/70">Easily navigate back and forth between screens anytime.</p>
                     </div>
                 </div>
-                <button onclick="navigateToPage(1, event)" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 hover:from-amber-300 hover:to-rose-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-amber-500/25">
-                    Return to Welcome
+                <button onclick="navigateToPage(1, event)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white font-semibold text-sm transition-all shadow-lg shadow-pink-500/25">
+                    Back To Welcome Page
                 </button>
             </div>
         </main>
@@ -465,34 +485,37 @@
 
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
-        /* ================= 1. Dynamic Typing Floral Greeting Effect ================= */
-        const words = ["Blossom", "Sunseeker", "Dreamer", "Wanderer"];
-        let wordIndex = 0;
+        /* ================= 1. Dynamic Typing Greeting Effect ================= */
+        const phrases = [
+            "Lemme enhance your music",
+            "Lemme uplift your mood"
+        ];
+        let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        const typingSpeed = 120;
-        const deletingSpeed = 60;
-        const delayBetweenWords = 2000;
+        const typingSpeed = 80;
+        const deletingSpeed = 40;
+        const delayBetweenPhrases = 2200;
         const dynamicTextEl = document.getElementById("dynamicTypingText");
 
         function typeEffect() {
-            const currentWord = words[wordIndex];
+            const currentPhrase = phrases[phraseIndex];
             
             if (isDeleting) {
-                dynamicTextEl.textContent = currentWord.substring(0, charIndex - 1);
+                dynamicTextEl.textContent = currentPhrase.substring(0, charIndex - 1);
                 charIndex--;
             } else {
-                dynamicTextEl.textContent = currentWord.substring(0, charIndex + 1);
+                dynamicTextEl.textContent = currentPhrase.substring(0, charIndex + 1);
                 charIndex++;
             }
 
-            if (!isDeleting && charIndex === currentWord.length) {
+            if (!isDeleting && charIndex === currentPhrase.length) {
                 isDeleting = true;
-                setTimeout(typeEffect, delayBetweenWords);
+                setTimeout(typeEffect, delayBetweenPhrases);
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                setTimeout(typeEffect, 400);
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(typeEffect, 300);
             } else {
                 setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
             }
@@ -514,15 +537,15 @@
             circle.style.top = `${event.clientY - rect.top - radius}px`;
             circle.classList.add("ripple");
 
-            const existingRipple = button.querySelector(".ripple");
-            if (existingRipple) {
-                existingRipple.remove();
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
             }
 
             button.appendChild(circle);
         }
 
-        function navigateToPage(targetPageNum, event) {
+        function navigateToPage(pageNumber, event) {
             if (event) {
                 createRipple(event);
             }
@@ -530,15 +553,16 @@
             const page1 = document.getElementById("page1");
             const page2 = document.getElementById("page2");
 
-            if (targetPageNum === 2) {
+            if (pageNumber === 2) {
                 page1.classList.remove("page-active");
                 page1.classList.add("page-hidden-left");
 
                 page2.classList.remove("page-hidden-right");
                 page2.classList.add("page-active");
 
-                animateCounters();
-            } else {
+                // Trigger stat counters animation on Page 2 load
+                setTimeout(animateCounters, 300);
+            } else if (pageNumber === 1) {
                 page2.classList.remove("page-active");
                 page2.classList.add("page-hidden-right");
 
@@ -551,158 +575,4 @@
 
 
         /* ================= 3. Stat Counters Animation ================= */
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                counter.innerText = '0';
-                const target = +counter.getAttribute('data-target');
-                const duration = 1400; // ms
-                const increment = target / (duration / 16);
-
-                let current = 0;
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.innerText = Math.ceil(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCounter();
-            });
-        }
-
-
-        /* ================= 4. Mouse Interactive Parallax Tilt ================= */
-        const heroContainer = document.getElementById("heroInteractiveContainer");
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
-
-        document.addEventListener("mousemove", (e) => {
-            mouseX = (e.clientX - window.innerWidth / 2) / 40;
-            mouseY = (e.clientY - window.innerHeight / 2) / 40;
-        });
-
-        function animateParallax() {
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            if (heroContainer) {
-                heroContainer.style.transform = `translate3d(${targetX}px, ${targetY}px, 0px)`;
-            }
-            requestAnimationFrame(animateParallax);
-        }
-        animateParallax();
-
-
-        /* ================= 5. Canvas Floating Flower Petals Animation ================= */
-        const canvas = document.getElementById("petalCanvas");
-        const ctx = canvas.getContext("2d");
-
-        let petalsArray = [];
-        const numberOfPetals = 65;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        let windMouse = {
-            x: 0,
-            y: 0
-        };
-
-        window.addEventListener("mousemove", (e) => {
-            windMouse.x = (e.clientX - window.innerWidth / 2) * 0.001;
-            windMouse.y = (e.clientY - window.innerHeight / 2) * 0.0005;
-        });
-
-        // Flower Petal Object
-        class Petal {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * 12 + 8;
-                this.speedY = Math.random() * 1.2 + 0.6;
-                this.speedX = Math.random() * 0.8 - 0.4;
-                this.angle = Math.random() * 360;
-                this.spin = (Math.random() - 0.5) * 1.5;
-                this.oscillation = Math.random() * 0.03 + 0.01;
-                this.oscillationCount = Math.random() * 100;
-                
-                // Warm Floral Color Palette (Rose Petals, Sakura Pink, Golden Warmth)
-                const petalColors = [
-                    'rgba(255, 182, 193, 0.75)',
-                    'rgba(255, 140, 158, 0.7)',
-                    'rgba(255, 215, 0, 0.65)',
-                    'rgba(255, 235, 180, 0.8)',
-                    'rgba(240, 128, 128, 0.7)'
-                ];
-                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
-            }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.angle * Math.PI) / 180);
-
-                // Draw organic petal shape using bezier curves
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, -this.size / 4, this.size, this.size / 2);
-                ctx.bezierCurveTo(this.size / 2, this.size, 0, this.size, 0, 0);
-
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = "rgba(255, 200, 150, 0.4)";
-                ctx.fill();
-                ctx.restore();
-            }
-
-            update() {
-                this.oscillationCount += this.oscillation;
-                this.x += Math.sin(this.oscillationCount) * 1.2 + this.speedX + (windMouse.x * 5);
-                this.y += this.speedY + (windMouse.y * 2);
-                this.angle += this.spin;
-
-                // Reset position when falling off screen
-                if (this.y > canvas.height + 20) {
-                    this.y = -20;
-                    this.x = Math.random() * canvas.width;
-                }
-                if (this.x > canvas.width + 20) {
-                    this.x = -20;
-                } else if (this.x < -20) {
-                    this.x = canvas.width + 20;
-                }
-
-                this.draw();
-            }
-        }
-
-        function initPetals() {
-            petalsArray = [];
-            for (let i = 0; i < numberOfPetals; i++) {
-                petalsArray.push(new Petal());
-            }
-        }
-
-        function animatePetals() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < petalsArray.length; i++) {
-                petalsArray[i].update();
-            }
-            requestAnimationFrame(animatePetals);
-        }
-
-        // Initialize & Run Simulation
-        window.onload = function() {
-            initPetals();
-            animatePetals();
-        };
-    </script>
-</body>
-</html>
+<!-- ... existing code -->
