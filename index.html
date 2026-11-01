@@ -118,6 +118,45 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Abstract Floral Mesh Background Pattern */
+        .bg-grid-pattern {
+            background-size: 60px 60px;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.05) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(26, 15, 36, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 200, 220, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(18, 10, 26, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 200, 220, 0.12);
+        }
+
+        /* Ambient Glow Spheres */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.45;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.35; }
+            50% { transform: scale(1.2) translate(30px, -40px); opacity: 0.65; }
+            100% { transform: scale(0.9) translate(-20px, 30px); opacity: 0.35; }
+        }
+
         /* Dynamic Text Gradient Glow */
         .text-gradient-sun {
             background: linear-gradient(135deg, #ffb3c6 0%, #ff80bf 40%, #ffd166 100%);
@@ -177,9 +216,68 @@
                 opacity: 0;
             }
         }
+
+        /* Page Transition Animations */
+        .page-view {
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            min-height: 100vh;
+        }
+
+        .page-hidden-left {
+            opacity: 0;
+            transform: scale(0.92) translateY(-20px);
+            filter: blur(10px);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .page-hidden-right {
+            opacity: 0;
+            transform: scale(1.08) translateY(20px);
+            filter: blur(10px);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .page-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0px);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        /* Hover Zoom Card Effects */
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 180, 200, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 150, 180, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0614;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a1538;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffb3c6;
+        }
     </style>
 </head>
-<body class="relative text-white min-h-screen overflow-x-hidden bg-cover bg-center bg-no-repeat bg-fixed flex flex-col justify-between items-center px-6 py-10" style="background-image: url('tm.png');">
+<body <body class="relative text-white min-h-screen overflow-x-hidden bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('tm.png');">">
 
     <!-- Sun Flare & Ray Visual Elements -->
     <div class="sun-glare"></div>
@@ -187,7 +285,441 @@
     <div class="lens-flare-1"></div>
     <div class="lens-flare-2"></div>
 
-    <!-- Top Navigation Bar -->
-    <header class="w-full max-w-7xl flex justify-between items-center z-20">
-        <div class="flex items-center gap-3">
-            <span class="font-serif font-bold text-2
+    <!-- Interactive Glowing Ambient Orbs -->
+
+    <!-- Background Grid & Dynamic Floral Petals Canvas -->
+
+    <!-- ================= PAGE 1: HERO / WELCOME PAGE ================= -->
+    <section id="page1" class="page-view page-active z-10 flex flex-col justify-between items-center px-6 py-10">
+        <!-- Top Navigation Bar -->
+        <header class="w-full max-w-7xl flex justify-between items-center z-20">
+            <div class="flex items-center gap-3">
+                <span class="font-serif font-bold text-2xl tracking-wide text-white"><span class="text-amber-300 font-sans text-lg font-light"></span></span>
+            </div>
+            <div class="text-xs uppercase tracking-widest text-amber-200/90 bg-white/10 border border-amber-300/20 px-4 py-2 rounded-full backdrop-blur-md flex items-center gap-2">
+                <i class="fa-solid fa-sun text-amber-300 animate-spin" style="animation-duration: 12s;"></i>
+            
+            </div>
+        </header>
+
+        <!-- Main Center Hero Content -->
+        <main class="flex-1 flex flex-col justify-center items-center text-center max-w-4xl my-auto z-20 transition-all duration-300 transform" id="heroInteractiveContainer">
+            
+            <!-- Greeting Headline with Typewriter Lines -->
+            <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-8 leading-tight min-h-[140px] sm:min-h-[160px] flex items-center justify-center">
+                <span id="dynamicTypingText" class="text-gradient-sun italic"></span><span class="animate-pulse text-amber-300 font-light ml-1">|</span>
+            </h1>
+
+            <!-- Centered Animated CTA Button -->
+            <button id="enterBtn" onclick="navigateToPage(2, event)" class="cta-btn group relative px-10 py-5 rounded-full font-semibold text-lg tracking-wider uppercase text-white flex items-center gap-4 cursor-pointer">
+                <span>Lets Go</span>
+                <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1.5 group-hover:bg-amber-300 text-amber-100 group-hover:text-amber-950">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </button>
+        </main>
+
+        <!-- Footer Scroll Indicator -->
+        <footer class="w-full text-center text-xs text-amber-200/70 z-20 flex flex-col items-center gap-2">
+            <div class="w-5 h-9 rounded-full border-2 border-amber-300/40 flex justify-center p-1">
+                <div class="w-1.5 h-2.5 bg-amber-300 rounded-full animate-bounce"></div>
+            </div>
+        </footer>
+    </section>
+
+    <!-- ================= PAGE 2: DASHBOARD / CONTENT PAGE ================= -->
+    <section id="page2" class="page-view page-hidden-right z-10 flex flex-col min-h-screen">
+        <!-- Top Glass Navigation Bar -->
+        <nav class="glass-nav sticky top-0 z-30 px-6 py-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <span class="font-serif font-bold text-xl tracking-wide text-white"><span class="text-amber-300 font-sans text-sm font-light">\</span></span>
+                </div>
+
+                <!-- Controls & Back Button -->
+                <div class="flex items-center gap-4">
+                    <button onclick="navigateToPage(1, event)" class="px-5 py-2.5 rounded-full border border-amber-300/30 bg-white/5 hover:bg-white/15 hover:border-amber-300/60 text-amber-100 text-sm font-medium transition-all flex items-center gap-2 group">
+                        <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1 text-amber-300"></i>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page 2 Main Content Container -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10 z-20">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-pink-300 font-semibold tracking-wider text-sm uppercase">Solar & Floral Experience</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold mt-1 text-white">Serene Visuals</h2>
+                </div>
+                <p class="text-pink-100/70 max-w-md text-sm sm:text-base">
+                    Discover interactive feature cards, solar metrics, and optimized procedural petal animation physics tailored for a relaxing web environment.
+                </p>
+            </div>
+
+            <!-- Stats Grid Counter Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-pink-500/10 rounded-full blur-xl group-hover:bg-pink-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
+                        <span>Solar Illumination</span>
+                        <i class="fa-solid fa-sun text-amber-300"></i>
+                    </div>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="98">0</span> <span class="text-pink-300 text-2xl">%</span>
+                    </div>
+                    <p class="text-xs text-pink-200/50">Warm sunlight flare blend scale</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-rose-500/10 rounded-full blur-xl group-hover:bg-rose-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
+                        <span>Active Sakura Petals</span>
+                        <i class="fa-solid fa-seedling text-pink-400"></i>
+                    </div>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="60">0</span> <span class="text-amber-300 text-2xl">Petals</span>
+                    </div>
+                    <p class="text-xs text-pink-200/50">Simulated aerodynamic wind drift</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all"></div>
+                    <div class="text-pink-200/70 text-sm font-medium mb-2 flex items-center justify-between">
+                        <span>Fluid Harmony</span>
+                        <i class="fa-solid fa-heart text-rose-400"></i>
+                    </div>
+                    <div class="font-display text-4xl font-extrabold text-white mb-2">
+                        <span class="counter" data-target="100">0</span> <span class="text-rose-300 text-2xl">%</span>
+                    </div>
+                    <p class="text-xs text-pink-200/50">Ultra-smooth responsive visual state</p>
+                </div>
+            </div>
+
+            <!-- Feature Highlight Cards -->
+            <h3 class="font-display text-xl font-semibold mb-6 text-pink-100">Featured Elements</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                
+                <!-- Card 1 -->
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-300 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-clover"></i>
+                        </div>
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Floating Petals Physics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            Procedurally rendered organic flower petal geometry floating gracefully with natural flutter, sway, and dynamic wind responses.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-xs font-semibold text-pink-300 gap-2 hover:translate-x-1 transition-transform">
+                        <span>Explore details</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Sun Glare Optics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            Atmospheric light ray diffusion and pulsating corner solar flare overlays creating a gentle, radiant glow.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 gap-2 hover:translate-x-1 transition-transform">
+                        <span>Explore details</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card feature-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h4 class="font-display text-xl font-bold text-white mb-3">Warm Aesthetics</h4>
+                        <p class="text-pink-100/70 text-sm leading-relaxed mb-6">
+                            A curated color palette blending soft blush, rose gold, and solar amber highlights designed for visual tranquility.
+                        </p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-xs font-semibold text-rose-300 gap-2 hover:translate-x-1 transition-transform">
+                        <span>Explore details</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Footer Section -->
+            <div class="glass-card p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-pink-400/20 text-pink-300 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Experience the sunlit atmosphere</h4>
+                        <p class="text-sm text-pink-100/70">Easily navigate back and forth between screens anytime.</p>
+                    </div>
+                </div>
+                <button onclick="navigateToPage(1, event)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white font-semibold text-sm transition-all shadow-lg shadow-pink-500/25">
+                    Back To Welcome Page
+                </button>
+            </div>
+        </main>
+    </section>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        /* ================= 1. Dynamic Typing Greeting Effect ================= */
+        const phrases = [
+            "Lemme enhance your music",
+            "Lemme uplift your mood"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 80;
+        const deletingSpeed = 80;
+        const delayBetweenPhrases = 2200;
+        const dynamicTextEl = document.getElementById("dynamicTypingText");
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                dynamicTextEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                dynamicTextEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, delayBetweenPhrases);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(typeEffect, 300);
+            } else {
+                setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+
+        /* ================= 2. Smooth Two-Page Navigation & Ripple ================= */
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            const rect = button.getBoundingClientRect();
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - rect.left - radius}px`;
+            circle.style.top = `${event.clientY - rect.top - radius}px`;
+            circle.classList.add("ripple");
+
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        function navigateToPage(pageNumber, event) {
+            if (event) {
+                createRipple(event);
+            }
+
+            const page1 = document.getElementById("page1");
+            const page2 = document.getElementById("page2");
+
+            if (pageNumber === 2) {
+                page1.classList.remove("page-active");
+                page1.classList.add("page-hidden-left");
+
+                page2.classList.remove("page-hidden-right");
+                page2.classList.add("page-active");
+
+                // Trigger stat counters animation on Page 2 load
+                setTimeout(animateCounters, 300);
+            } else if (pageNumber === 1) {
+                page2.classList.remove("page-active");
+                page2.classList.add("page-hidden-right");
+
+                page1.classList.remove("page-hidden-left");
+                page1.classList.add("page-active");
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        /* ================= 3. Stat Counters Animation ================= */
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = Math.max(1, Math.ceil(target / speed));
+
+                    if (count < target) {
+                        counter.innerText = count + inc;
+                        setTimeout(updateCount, 25);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+
+        /* ================= 4. Interactive Floating Sakura Petals Canvas ================= */
+        const canvas = document.getElementById("particleCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let width, height;
+        let petals = [];
+        const petalCount = 45;
+
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 140
+        };
+
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // Subtle Hero Mouse Tilt Effect
+            const heroContainer = document.getElementById("heroInteractiveContainer");
+            if (heroContainer) {
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight / 2;
+                const dx = (e.clientX - cx) / cx;
+                const dy = (e.clientY - cy) / cy;
+
+                heroContainer.style.transform = `perspective(1000px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg)`;
+            }
+        });
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height;
+                this.size = Math.random() * 10 + 8;
+                this.speedY = Math.random() * 1.2 + 0.6;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+                this.opacity = Math.random() * 0.6 + 0.3;
+
+                // Blossom Color Palette Shades
+                const colorPalette = [
+                    'rgba(255, 182, 193, ',
+                    'rgba(255, 192, 203, ',
+                    'rgba(255, 150, 180, ',
+                    'rgba(255, 220, 180, '
+                ];
+                this.colorBase = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
+                this.rotation += this.rotationSpeed;
+
+                // Mouse Repulsion & Breeze Interaction
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        this.x += Math.cos(angle) * force * 3;
+                        this.y += Math.sin(angle) * force * 3;
+                    }
+                }
+
+                // Reset position when petal moves off screen
+                if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
+                    this.reset();
+                    this.y = -10;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+
+                ctx.beginPath();
+                // Draw petal geometry curves
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+                ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+
+                ctx.fillStyle = this.colorBase + this.opacity + ')';
+                ctx.shadowColor = 'rgba(255, 182, 193, 0.4)';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize Petal Array
+        for (let i = 0; i < petalCount; i++) {
+            petals.push(new Petal());
+        }
+
+        // Main Animation Canvas Loop
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach((petal) => {
+                petal.update();
+                petal.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Start Animation Loop on Window Load
+        window.onload = function() {
+            animateCanvas();
+            typeEffect();
+        };
+    </script>
+</body>
+</html>
