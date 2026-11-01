@@ -311,12 +311,16 @@
             </h1>
 
             <!-- Centered Animated CTA Button -->
-            <button id="enterBtn" onclick="navigateToPage(2, event)" class="cta-btn group relative px-10 py-5 rounded-full font-semibold text-lg tracking-wider uppercase text-white flex items-center gap-4 cursor-pointer">
-                <span>Lets Go</span>
-                <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1.5 group-hover:bg-amber-300 text-amber-100 group-hover:text-amber-950">
-                    <i class="fa-solid fa-arrow-right text-sm"></i>
-                </div>
-            </button>
+            <!-- Centered Interactive Button Container -->
+<div id="buttonContainer" class="flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-500">
+    <!-- Initial "Lets Go" Button -->
+    <button id="letsGoBtn" onclick="showOptionButtons()" class="cta-btn group relative px-10 py-5 rounded-full font-semibold text-lg tracking-wider uppercase text-white flex items-center gap-4 cursor-pointer">
+        <span>Lets Go</span>
+        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1.5 group-hover:bg-amber-300 text-amber-100 group-hover:text-amber-950">
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+        </div>
+    </button>
+</div>
         </main>
 
         <!-- Footer Scroll Indicator -->
@@ -514,7 +518,7 @@
         document.addEventListener("DOMContentLoaded", typeEffect);
 
 
-        /* ================= 2. Smooth Two-Page Navigation & Ripple ================= */
+        /* ================= 2. Ripple Effect ================= */
         function createRipple(event) {
             const button = event.currentTarget;
             const circle = document.createElement("span");
@@ -535,191 +539,29 @@
             button.appendChild(circle);
         }
 
-        function navigateToPage(pageNumber, event) {
-            if (event) {
-                createRipple(event);
-            }
 
-            const page1 = document.getElementById("page1");
-            const page2 = document.getElementById("page2");
+        /* ================= 3. Reveal 3 URL Buttons on 'Lets Go' Click ================= */
+        function showOptionButtons(event) {
+            createRipple(event);
+            const container = document.getElementById("buttonContainer");
 
-            if (pageNumber === 2) {
-                page1.classList.remove("page-active");
-                page1.classList.add("page-hidden-left");
-
-                page2.classList.remove("page-hidden-right");
-                page2.classList.add("page-active");
-
-                // Trigger stat counters animation on Page 2 load
-                setTimeout(animateCounters, 300);
-            } else if (pageNumber === 1) {
-                page2.classList.remove("page-active");
-                page2.classList.add("page-hidden-right");
-
-                page1.classList.remove("page-hidden-left");
-                page1.classList.add("page-active");
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Replaces the single button with 3 custom URL buttons
+            // Change the href values below to your actual custom URLs
+            container.innerHTML = `
+                <a href="https://example.com/link1" target="_blank" class="cta-btn group relative px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase text-white flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-music text-amber-300"></i>
+                    <span>Option 1</span>
+                </a>
+                <a href="https://example.com/link2" target="_blank" class="cta-btn group relative px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase text-white flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-heart text-rose-300"></i>
+                    <span>Option 2</span>
+                </a>
+                <a href="https://example.com/link3" target="_blank" class="cta-btn group relative px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase text-white flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-sparkles text-pink-300"></i>
+                    <span>Option 3</span>
+                </a>
+            `;
         }
-
-
-        /* ================= 3. Stat Counters Animation ================= */
-        let countersAnimated = false;
-
-        function animateCounters() {
-            if (countersAnimated) return;
-            countersAnimated = true;
-
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-
-            counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
-                    const inc = Math.max(1, Math.ceil(target / speed));
-
-                    if (count < target) {
-                        counter.innerText = count + inc;
-                        setTimeout(updateCount, 25);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCount();
-            });
-        }
-
-
-        /* ================= 4. Interactive Floating Sakura Petals Canvas ================= */
-        const canvas = document.getElementById("particleCanvas");
-        const ctx = canvas.getContext("2d");
-
-        let width, height;
-        let petals = [];
-        const petalCount = 45;
-
-        const mouse = {
-            x: null,
-            y: null,
-            radius: 140
-        };
-
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-
-            // Subtle Hero Mouse Tilt Effect
-            const heroContainer = document.getElementById("heroInteractiveContainer");
-            if (heroContainer) {
-                const cx = window.innerWidth / 2;
-                const cy = window.innerHeight / 2;
-                const dx = (e.clientX - cx) / cx;
-                const dy = (e.clientY - cy) / cy;
-
-                heroContainer.style.transform = `perspective(1000px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg)`;
-            }
-        });
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        class Petal {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * -height;
-                this.size = Math.random() * 10 + 8;
-                this.speedY = Math.random() * 1.2 + 0.6;
-                this.speedX = Math.random() * 0.8 - 0.4;
-                this.rotation = Math.random() * 360;
-                this.rotationSpeed = (Math.random() - 0.5) * 1.5;
-                this.opacity = Math.random() * 0.6 + 0.3;
-
-                // Blossom Color Palette Shades
-                const colorPalette = [
-                    'rgba(255, 182, 193, ',
-                    'rgba(255, 192, 203, ',
-                    'rgba(255, 150, 180, ',
-                    'rgba(255, 220, 180, '
-                ];
-                this.colorBase = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-            }
-
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
-                this.rotation += this.rotationSpeed;
-
-                // Mouse Repulsion & Breeze Interaction
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = this.x - mouse.x;
-                    const dy = this.y - mouse.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < mouse.radius) {
-                        const force = (mouse.radius - dist) / mouse.radius;
-                        const angle = Math.atan2(dy, dx);
-                        this.x += Math.cos(angle) * force * 3;
-                        this.y += Math.sin(angle) * force * 3;
-                    }
-                }
-
-                // Reset position when petal moves off screen
-                if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
-                    this.reset();
-                    this.y = -10;
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
-
-                ctx.beginPath();
-                // Draw petal geometry curves
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
-                ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
-
-                ctx.fillStyle = this.colorBase + this.opacity + ')';
-                ctx.shadowColor = 'rgba(255, 182, 193, 0.4)';
-                ctx.shadowBlur = 8;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Initialize Petal Array
-        for (let i = 0; i < petalCount; i++) {
-            petals.push(new Petal());
-        }
-
-        // Main Animation Canvas Loop
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            petals.forEach((petal) => {
-                petal.update();
-                petal.draw();
-            });
-            requestAnimationFrame(animateCanvas);
-        }
-
-        // Start Animation Loop on Window Load
-        window.onload = function() {
-            animateCanvas();
-            typeEffect();
-        };
     </script>
 </body>
 </html>
