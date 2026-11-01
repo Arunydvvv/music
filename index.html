@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music</title>
+    <title>Mood & Music Visual Enhancer</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Montserrat & Space Grotesk -->
@@ -20,11 +20,6 @@
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
                         display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        cyanGlow: '#00f3ff',
-                        purpleGlow: '#8000ff',
-                        magentaGlow: '#ff007f'
                     }
                 }
             }
@@ -32,7 +27,7 @@
     </script>
 
     <style>
-        /* Custom Styles & Animation Logic */
+        /* Custom Styles & Visual Effects */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #0d0614;
@@ -163,7 +158,7 @@
         }
 
         /* Dynamic Text Gradient Glow */
-        .text-gradient-glow {
+        .text-gradient-sun {
             background: linear-gradient(135deg, #ffb3c6 0%, #ff80bf 40%, #ffd166 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -282,8 +277,7 @@
         }
     </style>
 </head>
-<body <body class="relative text-white min-h-screen overflow-x-hidden selection:bg-pink-400 selection:text-black bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('tm.png');">
->
+<body <body class="relative text-white min-h-screen overflow-x-hidden bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('tm.png');">">
 
     <!-- Sun Flare & Ray Visual Elements -->
     <div class="sun-glare"></div>
@@ -298,10 +292,19 @@
 
     <!-- Background Grid & Dynamic Floral Petals Canvas -->
     <div class="fixed inset-0 bg-grid-pattern opacity-60 z-0 pointer-events-none"></div>
+    <canvas id="particleCanvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
 
     <!-- ================= PAGE 1: HERO / WELCOME PAGE ================= -->
     <section id="page1" class="page-view page-active z-10 flex flex-col justify-between items-center px-6 py-10">
-        <!-- Top Header Branding -->
+        <!-- Top Navigation Bar -->
+        <header class="w-full max-w-7xl flex justify-between items-center z-20">
+            <div class="flex items-center gap-3">
+                <span class="font-serif font-bold text-2xl tracking-wide text-white"><span class="text-amber-300 font-sans text-lg font-light"></span></span>
+            </div>
+            <div class="text-xs uppercase tracking-widest text-amber-200/90 bg-white/10 border border-amber-300/20 px-4 py-2 rounded-full backdrop-blur-md flex items-center gap-2">
+                <i class="fa-solid fa-sun text-amber-300 animate-spin" style="animation-duration: 12s;"></i>
+            
+            </div>
         </header>
 
         <!-- Main Center Hero Content -->
@@ -321,7 +324,7 @@
             </button>
         </main>
 
-        <!-- Footer Visual Indicator -->
+        <!-- Footer Scroll Indicator -->
         <footer class="w-full text-center text-xs text-amber-200/70 z-20 flex flex-col items-center gap-2">
             <div class="w-5 h-9 rounded-full border-2 border-amber-300/40 flex justify-center p-1">
                 <div class="w-1.5 h-2.5 bg-amber-300 rounded-full animate-bounce"></div>
@@ -457,7 +460,7 @@
 
             </div>
 
-            <!-- Footer area for Page 2 -->
+            <!-- Footer Section -->
             <div class="glass-card p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-full bg-pink-400/20 text-pink-300 flex items-center justify-center text-xl">
@@ -567,4 +570,161 @@
 
 
         /* ================= 3. Stat Counters Animation ================= */
-<!-- ... existing code -->
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = Math.max(1, Math.ceil(target / speed));
+
+                    if (count < target) {
+                        counter.innerText = count + inc;
+                        setTimeout(updateCount, 25);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+
+        /* ================= 4. Interactive Floating Sakura Petals Canvas ================= */
+        const canvas = document.getElementById("particleCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let width, height;
+        let petals = [];
+        const petalCount = 45;
+
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 140
+        };
+
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // Subtle Hero Mouse Tilt Effect
+            const heroContainer = document.getElementById("heroInteractiveContainer");
+            if (heroContainer) {
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight / 2;
+                const dx = (e.clientX - cx) / cx;
+                const dy = (e.clientY - cy) / cy;
+
+                heroContainer.style.transform = `perspective(1000px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg)`;
+            }
+        });
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height;
+                this.size = Math.random() * 10 + 8;
+                this.speedY = Math.random() * 1.2 + 0.6;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+                this.opacity = Math.random() * 0.6 + 0.3;
+
+                // Blossom Color Palette Shades
+                const colorPalette = [
+                    'rgba(255, 182, 193, ',
+                    'rgba(255, 192, 203, ',
+                    'rgba(255, 150, 180, ',
+                    'rgba(255, 220, 180, '
+                ];
+                this.colorBase = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
+                this.rotation += this.rotationSpeed;
+
+                // Mouse Repulsion & Breeze Interaction
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        this.x += Math.cos(angle) * force * 3;
+                        this.y += Math.sin(angle) * force * 3;
+                    }
+                }
+
+                // Reset position when petal moves off screen
+                if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
+                    this.reset();
+                    this.y = -10;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+
+                ctx.beginPath();
+                // Draw petal geometry curves
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+                ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+
+                ctx.fillStyle = this.colorBase + this.opacity + ')';
+                ctx.shadowColor = 'rgba(255, 182, 193, 0.4)';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize Petal Array
+        for (let i = 0; i < petalCount; i++) {
+            petals.push(new Petal());
+        }
+
+        // Main Animation Canvas Loop
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach((petal) => {
+                petal.update();
+                petal.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Start Animation Loop on Window Load
+        window.onload = function() {
+            animateCanvas();
+            typeEffect();
+        };
+    </script>
+</body>
+</html>
